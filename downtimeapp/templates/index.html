@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MC 30</title>
+    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    
+    <script src= "{% static 'htmx.js' %}"></script>
+    <script src="{% static 'bootstrap.js' %}"></script>
+</head>
+<body>
+    <h1 class="text-center">MESIN 30</h1>
+    <div class="container">
+        <div id="currentDateTime"></div>
+        <div class="row top-container">
+            <div class="col-6 text-center area-action">
+                <button 
+                    class="btn btn-primary" 
+                    hx-post="{% url 'update_status' %}" 
+                    hx-trigger="click" 
+                    hx-target="#status"
+                    hx-swap="innerHTML"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#waitingModal"
+                >
+                    Leader
+                </button>
+                <button class="btn btn-secondary" onclick="location.href='#'">Setter</button>
+                <button class="btn btn-secondary" onclick="location.href='#'">Maintenance</button>
+                <button class="btn btn-secondary" onclick="location.href='#'">Mold</button>
+            </div>
+
+            <div class="col-6 text-center area-machine">
+                <div class="machine-run-timer">
+                    <h2 class="-header">MACHINE ON</h2>
+                    <div id="timer1">00:00</div>
+                    <form method="post">
+                        {% csrf_token %}
+                    </form>
+                    <button class="btn btn-success" onclick="startTimer()">Start</button>
+                    <button class="btn btn-danger" onclick="stopTimer()">Stop</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Display Area -->
+        <div id="status"></div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="waitingModal" tabindex="-1" aria-labelledby="waitingModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="waitingModalLabel">Waiting...</h5>
+                       
+                    </div>
+                    <div class="modal-body">
+                        LEADER CONFIRMATION
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Tombol untuk menutup modal dan reset status -->
+                        <button type="button" 
+                                class="btn btn-secondary" 
+                                hx-post="{% url 'reset_status' %}" 
+                                hx-target="#status"
+                                hx-swap="innerHTML"
+                                data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="button" 
+                                class="btn btn-primary" 
+                                hx-post="{% url 'reset_status' %}" 
+                                hx-target="#status"
+                                hx-swap="innerHTML"
+                                data-bs-dismiss="modal"
+                                onclick="redirectToLeader()">
+                                Accept
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const date = now.toLocaleDateString('id-ID', options);
+            const time = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('currentDateTime').innerText = `${date}, ${time}`;
+        }
+
+        setInterval(updateDateTime, 1000); // Update setiap detik
+
+        // Timer
+        let seconds = 0;
+        let timerInterval;
+        const timerElement = document.getElementById("timer1");
+
+        function updateTimer() {
+            seconds++;
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            timerElement.innerText = `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (!timerInterval) {
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function redirectToLeader() {
+            window.location.href = "{% url 'leader' %}";
+        }
+        
+
+        function updateDisplayStatus(status) {
+        fetch("{% url 'update_display_status' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ status: status })
+        });
+    }
+
+    function redirectToLeader() {
+        window.location.href = "{% url 'leader' %}";
+    }
+    
+    function setLeaderStatus() {
+        updateDisplayStatus('leader');
+    }
+
+    function resetBox30() {
+        updateDisplayStatus('reset');
+    }
+
+    document.querySelector('[data-bs-target="#waitingModal"]').addEventListener('click', setLeaderStatus);
+
+    </script>
+</body>
+</html>

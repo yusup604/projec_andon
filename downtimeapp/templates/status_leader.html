@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Menampilkan status terbaru dari mesin.">
+    <title>Status Leader</title>
+    <link rel="stylesheet" href="{% static 'stackpath_bootstrap.css' %}">
+ 
+    
+    <!-- Meta refresh untuk auto-refresh halaman setiap 5 detik -->
+    <meta http-equiv="refresh" content="2">
+    
+    <style>
+        #status {
+            font-size: 1.2em;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="status" class="alert alert-info text-center">
+        <p>{{ status }}</p>
+    </div>
+</body>
+</html>

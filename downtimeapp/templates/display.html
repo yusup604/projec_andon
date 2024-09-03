@@ -1,0 +1,169 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Machine</title>
+    <link rel="stylesheet" href="{% static 'stackpath_bootstrap.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            position: relative;
+        }
+        .header {
+            width: 100%;
+            background-color: #f4f4f4;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 10px 0;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+        }
+        .datetime {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 14px;
+            color: #000000;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+        }
+        .box {
+            background-color: #4CAF50;
+            border: 2px solid #388E3C;
+            border-radius: 8px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            height: 100px;
+            position: relative; /* For text positioning */
+        }
+        .box-yellow {
+            background-color: yellow;
+            color: black;
+            border-color: orange;
+        }
+        .box-blinking {
+            animation: blink 1s step-start infinite;
+        }
+        .box-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        STATUS MACHINE
+        <div class="datetime" id="datetime"></div>
+    </div>
+    <div class="container">
+        <!-- Generating 33 boxes with numbers -->
+        <div class="box">MC 1</div>
+        <div class="box">MC 2</div>
+        <div class="box">MC 3</div>
+        <div class="box">MC 4</div>
+        <div class="box">MC 5</div>
+        <div class="box">MC 6</div>
+        <div class="box">MC 7</div>
+        <div class="box">MC 8</div>
+        <div class="box">MC 9</div>
+        <div class="box">MC 10</div>
+        <div class="box">MC 11</div>
+        <div class="box">MC 12</div>
+        <div class="box">MC 13</div>
+        <div class="box">MC 14</div>
+        <div class="box">MC 15</div>
+        <div class="box">MC 16</div>
+        <div class="box">MC 17</div>
+        <div class="box">MC 18</div>
+        <div class="box">MC 19</div>
+        <div class="box">MC 20</div>
+        <div class="box">MC 21</div>
+        <div class="box">MC 22</div>
+        <div class="box">MC 23</div>
+        <div class="box">MC 24</div>
+        <div class="box">MC 25</div>
+        <div class="box">MC 26</div>
+        <div class="box">MC 27</div>
+        <div class="box">MC 28</div>
+        <div class="box">MC 29</div>
+        <div class="box" id="box-30">MC 30
+            <div class="box-content" id="box-content-30"></div>
+        </div> <!-- Box number 30 -->
+        <div class="box">MC 31</div>
+        <div class="box">MC 32</div>
+        <div class="box">MC 33</div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const datetimeString = now.toLocaleString('id-ID', options);
+            document.getElementById('datetime').textContent = datetimeString;
+        }
+
+        function applyLeaderStatus() {
+            const box30 = document.getElementById('box-30');
+            const content30 = document.getElementById('box-content-30');
+            box30.classList.add('box-yellow', 'box-blinking');
+            content30.textContent = "LEADER"; // Add LEADER text
+        }
+
+        function resetBox30() {
+            const box30 = document.getElementById('box-30');
+            const content30 = document.getElementById('box-content-30');
+            box30.classList.remove('box-blinking');
+            content30.textContent = ""; // Remove LEADER text but keep yellow background
+        }
+
+        function fetchStatus() {
+            fetch("{% url 'fetch_display_status' %}")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'leader') {
+                        applyLeaderStatus();
+                    } else if (data.status === 'reset') {
+                        resetBox30();
+                    }
+                });
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000); // Update every second
+        setInterval(fetchStatus, 5000); // Fetch status every 5 seconds
+    </script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+/* styles.css */
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Top Bar */
+.top-bar {
+    background-color: #ffffff;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Container */
+.container {
+    margin-top: 20px;
+}
+
+/* Action Buttons */
+.area-action .btn {
+    margin: 10px;
+}
+
+/* Machine Timer */
+.machine-run-timer {
+    border: 2px solid #dee2e6;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.machine-run-timer h2 {
+    margin-bottom: 20px;
+}
+
+/* Modal Custom Styles */
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: #ffffff;
+    border-bottom: 1px solid #007bff;
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+}
+
+.modal-body {
+    font-size: 16px;
+    text-align: center;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.close {
+    color: #ffffff;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+    .area-action .btn {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .area-machine .machine-run-timer {
+        margin-top: 20px;
+    }
+}
+/* Gaya umum untuk modal */
+.modal-content {
+    border-radius: 10px; /* Sudut membulat */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan untuk efek kedalaman */
+    transition: transform 0.3s ease-out; /* Transisi halus saat muncul */
+}
+
+.modal-dialog {
+    max-width: 600px; /* Lebar maksimum modal */
+    margin: 1.75rem auto; /* Margin otomatis untuk pusatkan modal */
+}
+
+.modal-header {
+    border-bottom: 1px solid #dee2e6; /* Garis bawah header */
+    background-color: #f8f9fa; /* Warna latar belakang header */
+}
+
+.modal-title {
+    font-size: 1.25rem; /* Ukuran font judul */
+    font-weight: 500; /* Berat font */
+}
+
+.btn-close {
+    font-size: 1.25rem; /* Ukuran font tombol tutup */
+}
+
+.modal-body {
+    padding: 1.5rem; /* Padding di dalam body modal */
+    font-size: 1rem; /* Ukuran font konten body */
+    color: #333; /* Warna teks konten body */
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6; /* Garis atas footer */
+    background-color: #f8f9fa; /* Warna latar belakang footer */
+    text-align: right; /* Ratakan tombol ke kanan */
+}
+
+.modal-footer .btn {
+    padding: 0.5rem 1rem; /* Padding tombol */
+    font-size: 0.875rem; /* Ukuran font tombol */
+}
+
+/* Gaya khusus untuk modal dalam tampilan penuh */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 0.5rem; /* Margin kecil untuk perangkat mobile */
+    }
+}
+/* Modal styling */
+.modal-content {
+    border-radius: 10px; /* Sudut membulat */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan untuk efek kedalaman */
+    transition: transform 0.3s ease-out; /* Transisi halus saat muncul */
+}
+
+.modal-dialog {
+    max-width: 600px; /* Lebar maksimum modal */
+    margin: 1.75rem auto; /* Margin otomatis untuk pusatkan modal */
+}
+
+.modal-header {
+    border-bottom: 1px solid #dee2e6; /* Garis bawah header */
+    background-color: #f8f9fa; /* Warna latar belakang header */
+}
+
+.modal-title {
+    font-size: 1.25rem; /* Ukuran font judul */
+    font-weight: 500; /* Berat font */
+}
+
+.btn-close {
+    font-size: 1.25rem; /* Ukuran font tombol tutup */
+}
+
+.modal-body {
+    padding: 1.5rem; /* Padding di dalam body modal */
+    font-size: 1rem; /* Ukuran font konten body */
+    color: #333; /* Warna teks konten body */
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6; /* Garis atas footer */
+    background-color: #f8f9fa; /* Warna latar belakang footer */
+    text-align: right; /* Ratakan tombol ke kanan */
+}
+
+.modal-footer .btn {
+    padding: 0.5rem 1rem; /* Padding tombol */
+    font-size: 0.875rem; /* Ukuran font tombol */
+}
+
+/* Gaya khusus untuk modal dalam tampilan penuh */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 0.5rem; /* Margin kecil untuk perangkat mobile */
+    }
+}
+
+  #status {
+    display: none;  Menyembunyikan elemen dari tampilan 
+} 
+*
+
+
+/* Tampilan Display */
+.box-default {
+    background-color: #4CAF50; /* Warna hijau default atau sesuai kebutuhan */
+    color: white;
+    border-color: #388E3C;
+}
+
+.box-yellow {
+    background-color: yellow;
+    color: black;
+    border-color: orange;
+}
+
+.box-blinking {
+    animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}

@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOWNTIME MESIN</title>
+    <!-- Link ke Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src= "{% static 'htmx.js' %}"></script>
+</head>
+<body>
+    <h1 class="text-center">MESIN 30</h1>
+    <div class="container">
+        <h1 class="text-center">STOP CALL WAIT</h1>
+        <div class="row top-container">
+            <!-- Kontainer Atas Kiri -->
+            <div class="col-6 text-center area-action-leader">
+                <button class="btn btn-primary" 
+                    hx-post="{% url 'update_status' %}" 
+                    hx-trigger="click" 
+                    hx-target="#status"
+                    hx-swap="innerHTML"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#waitingModal">
+                    Setter
+                </button>
+                <button class="btn btn-warning" onclick="location.href='#'">Maintenance</button>
+                <button class="btn btn-info" onclick="location.href='#'">Mold</button>
+            </div>
+
+            <!-- Kontainer Atas Kanan -->
+            <div class="col-6 text-center area-machine">
+                <div class="col-6 text-center downtime-run-timer">
+                    <!-- Finish Button -->
+                    <div class="text-center mt-3">
+                        <button class="btn btn-danger" onclick="finish()">Finish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Display Area -->
+    <div id="status"></div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="waitingModal" tabindex="-1" aria-labelledby="waitingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="waitingModalLabel">Waiting...</h5>
+                </div>
+                <div class="modal-body">
+                    SETTER CONFIRMATION
+                </div>
+                <div class="modal-footer">
+                    <!-- Tombol untuk menutup modal dan reset status -->
+                    <button type="button" 
+                            class="btn btn-secondary" 
+                            hx-post="{% url 'reset_status' %}" 
+                            hx-target="#status"
+                            hx-swap="innerHTML"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" 
+                            class="btn btn-primary" 
+                            hx-post="{% url 'reset_status' %}" 
+                            hx-target="#status"
+                            hx-swap="innerHTML"
+                            data-bs-dismiss="modal"
+                            onclick="redirectToLeader()">
+                            Accept
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function finish() {
+            // Redirect to index.html
+            window.location.href = '{% url 'index' %}';
+        }
+
+        function redirectToLeader() {
+            window.location.href = '{% url 'leader' %}';
+        }
+    </script>
+
+    <!-- Link ke Bootstrap JS -->
+    <script src="{% static 'bootstrap.js' %}"></script>
+</body>
+</html>
