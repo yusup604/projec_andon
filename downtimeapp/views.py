@@ -1,6 +1,7 @@
 import json
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 
 # Global variable to keep the status
@@ -49,7 +50,13 @@ def fetch_display_status(request):
     global status
     return JsonResponse({'status': status})
 
+@csrf_exempt
+def reset_display_status(request):
+    global status
+    if request.method == 'POST':
+        status = "reset"
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'error'}, status=400)
+
 def perbaikan(request):
     return render(request, 'perbaikan.html')
-
-

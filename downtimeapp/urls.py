@@ -10,5 +10,6 @@ urlpatterns = [
     path('display/', views.display, name='display'),
     path('update_display_status/', views.update_display_status, name='update_display_status'),
     path('fetch_display_status/', views.fetch_display_status, name='fetch_display_status'),
+    path('reset_display_status/', views.reset_display_status, name='reset_display_status'),  # New endpoint
     path('perbaikan/', views.perbaikan, name='perbaikan'),
 ]

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     
-    <script src= "{% static 'htmx.js' %}"></script>
+    <script src="{% static 'htmx.js' %}"></script>
     <script src="{% static 'bootstrap.js' %}"></script>
 </head>
 <body>
@@ -56,7 +56,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="waitingModalLabel">Waiting...</h5>
-                       
                     </div>
                     <div class="modal-body">
                         LEADER CONFIRMATION
@@ -65,7 +64,7 @@
                         <!-- Tombol untuk menutup modal dan reset status -->
                         <button type="button" 
                                 class="btn btn-secondary" 
-                                hx-post="{% url 'reset_status' %}" 
+                                hx-post="{% url 'reset_display_status' %}" 
                                 hx-target="#status"
                                 hx-swap="innerHTML"
                                 data-bs-dismiss="modal">
@@ -73,7 +72,7 @@
                         </button>
                         <button type="button" 
                                 class="btn btn-primary" 
-                                hx-post="{% url 'reset_status' %}" 
+                                hx-post="{% url 'update_status' %}" 
                                 hx-target="#status"
                                 hx-swap="innerHTML"
                                 data-bs-dismiss="modal"
@@ -85,7 +84,6 @@
             </div>
         </div>
     </div>
-
 
     <script>
         function updateDateTime() {
@@ -124,33 +122,21 @@
         function redirectToLeader() {
             window.location.href = "{% url 'leader' %}";
         }
-        
 
         function updateDisplayStatus(status) {
-        fetch("{% url 'update_display_status' %}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            body: JSON.stringify({ status: status })
+            fetch("{% url 'update_display_status' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ status: status })
+            });
+        }
+
+        document.querySelector('[data-bs-target="#waitingModal"]').addEventListener('click', () => {
+            updateDisplayStatus('leader');
         });
-    }
-
-    function redirectToLeader() {
-        window.location.href = "{% url 'leader' %}";
-    }
-    
-    function setLeaderStatus() {
-        updateDisplayStatus('leader');
-    }
-
-    function resetBox30() {
-        updateDisplayStatus('reset');
-    }
-
-    document.querySelector('[data-bs-target="#waitingModal"]').addEventListener('click', setLeaderStatus);
-
     </script>
 </body>
 </html>
